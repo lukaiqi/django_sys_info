@@ -11,3 +11,7 @@ register = template.Library()
 def timefmt(value):
     """将时间戳转换成datetime类型的时间"""
     return datetime.fromtimestamp(value)
+
+@register.filter(name='cpu_val_fmt')
+def cpu_val_fmt(value):
+    return  round(value/1000, 2)
