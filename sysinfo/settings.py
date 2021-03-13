@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$-bp$pc9tk&r1j8l=x2(#&g8wh%$2ezdpemuw=sanm8x=4z&8m'
+SECRET_KEY = '&@3orc)0&81b3vni!ks^zy3v+i0^*qw(5!pz+tlme02prirq%!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
     'host',
 ]
 
@@ -105,19 +106,28 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-#LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'zh-hans'
-#TIME_ZONE = 'UTC'
+
+# TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Shanghai'
+
 USE_I18N = True
+
 USE_L10N = True
-#USE_TZ = True
+
+# USE_TZ = True
 USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 STATIC_URL = '/static/'
+# celery configure
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0' # Broker配置，使用Redis作为消息中间件
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/1' # BACKEND配置，这里使用redis
+CELERY_RESULT_SERIALIZER = 'json' # 结果序列化方案
