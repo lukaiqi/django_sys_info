@@ -4,6 +4,8 @@ from django.shortcuts import render
 import  psutil
 import  os, platform
 # Create your views here.
+from host.models import UserCpuPercent
+
 
 def index(request):
     """
@@ -54,6 +56,7 @@ def cpu(request, chart=None):
     except AttributeError:
         cpu_freq = None
     if chart == 'line':
+        datas = UserCpuPercent.objects.order_by('-id')[:30]
         return render(request, 'host/cpu-line.html', locals())
     elif chart == 'pie':
         return render(request, 'host/cpu-pie.html', locals())
@@ -62,15 +65,12 @@ def cpu(request, chart=None):
 def memory(request):
     pass
     return  render(request, 'host/memory.html', locals())
-
 def disk(request):
     pass
     return  render(request, 'host/disk.html', locals())
-
 def network(request):
     pass
     return  render(request, 'host/network.html', locals())
-
 def process(request):
     pass
     return  render(request, 'host/process.html', locals())
